@@ -34,6 +34,9 @@
       display: none;
     }
   }
+      .tox .tox-notification--in {
+          opacity: 0 !important;
+      }
 </style>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
@@ -58,10 +61,6 @@
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-    <link rel="stylesheet" href="{{ asset('text-editor/css/froala_editor.pkgd.min.css') }}">
- 
-    
-  <!-- Include Editor style. -->
 
 
     <!-- Page CSS -->
@@ -72,6 +71,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+        <script src="https://cdn.tiny.cloud/1/h4gehlm0fobd048lrllzfacmei3u799qtmsl8m1i8xwzhhpd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
   </head>
 
   <body>
@@ -161,13 +161,22 @@
 
    
 
-   <script src="{{ asset('text-editor/js/froala_editor.pkgd.min.js')}}"></script>
-
-
-<!-- Initialize the editor. -->
-<script>
-  new FroalaEditor('textarea',{key: "ACTIVATION_KEY"});
+  <script>
+  tinymce.init({
+    selector: 'textarea',
+    plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
+  });
 </script>
+
+
 
   </body>
 </html>
