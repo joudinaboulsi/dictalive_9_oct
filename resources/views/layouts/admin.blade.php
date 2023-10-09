@@ -166,7 +166,7 @@
 
 <!-- Initialize the editor. -->
 <script>
-  new FroalaEditor('textarea');
+  new FroalaEditor('textarea',{key: "ACTIVATION_KEY"});
 </script>
 
   </body>
